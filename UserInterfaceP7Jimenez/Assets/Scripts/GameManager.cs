@@ -23,11 +23,11 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
- 
+
         StartCoroutine(SpawnTarget());
         score = 0;
         UpdateScore(0);
-       
+
 
         ;
 
@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
         //Check if the user has pressed the P key
         if (Input.GetKeyDown(KeyCode.P))
         {
-            ChangePaused();
+         
         }
     }
 
@@ -64,53 +64,55 @@ public class GameManager : MonoBehaviour
     {
         gameOverText.gameObject.SetActive(true);
 
-     void UpdateLives(int livesToChange)
-    {
-        lives += livesToChange;
-        livesText.text = "lives: " + lives;
-        if (lives <= 0)
+        void UpdateLives(int livesToChange)
         {
-            GameOver();
+            lives += livesToChange;
+            livesText.text = "lives: " + lives;
+            if (lives <= 0)
+            {
+                GameOver();
+            }
         }
-    }
 
-    void GameOver()
-    {
-        restartButton.gameObject.SetActive(true);
-        gameOverText.gameObject.SetActive(true);
-        isGameActive = false;
-    }
-
-    void RestartGame()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
-     void StartGame(int difficulty)
-    {
-        isGameActive = true;
-        StartCoroutine(SpawnTarget());
-        score = 0;
-        spawnRate /= difficulty;
-        UpdateScore(0);
-        UpdateLives(3);
-
-        titleScreen.gameObject.SetActive(false);
-    }
-
-    void ChangePaused()
-    {
-        if (!paused)
+        void GameOver()
         {
-            paused = true;
-            pauseScreen.SetActive(true);
-            Time.timeScale = 0;
+            restartButton.gameObject.SetActive(true);
+            gameOverText.gameObject.SetActive(true);
+            isGameActive = false;
         }
-        else
+
+        void RestartGame()
         {
-            paused = false;
-            pauseScreen.SetActive(false);
-            Time.timeScale = 1;
-    
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        void StartGame(int difficulty)
+        {
+            isGameActive = true;
+            StartCoroutine(SpawnTarget());
+            score = 0;
+            spawnRate /= difficulty;
+            UpdateScore(0);
+            UpdateLives(3);
+
+            titleScreen.gameObject.SetActive(false);
+        }
+
+        void ChangePaused()
+        {
+            if (!paused)
+            {
+                paused = true;
+                pauseScreen.SetActive(true);
+                Time.timeScale = 0;
+            }
+            else
+            {
+                paused = false;
+                pauseScreen.SetActive(false);
+                Time.timeScale = 1;
+
+            }
+        } 
     }
 }
